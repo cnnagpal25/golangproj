@@ -1,7 +1,10 @@
 {
 	"ImportPath": "github.com/rest-api",
-	"GoVersion": "go1.12",
+	"GoVersion": "go1.13",
 	"GodepVersion": "v80",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/gorilla/mux",
