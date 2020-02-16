@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/rest-api",
-	"GoVersion": "go1.13",
+	"GoVersion": "go1.12",
 	"GodepVersion": "v80",
 	"Packages": [
 		"./..."

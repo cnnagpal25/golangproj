@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/rest-api/model"
@@ -24,11 +26,27 @@ func main() {
 	router.HandleFunc("/posts/{id}", getPost).Methods(http.MethodGet)
 	router.HandleFunc("/posts", createPost).Methods(http.MethodPost)
 
-	serverError := http.ListenAndServe(":8000", router)
+	port, err := determineListenAddress()
+
+	if err != nil {
+		port = ":8000"
+	}
+
+	log.Print("starting on port " + port)
+
+	serverError := http.ListenAndServe(port, router)
 
 	if serverError != nil {
 		fmt.Println("server error " + serverError.Error())
 	}
+}
+
+func determineListenAddress() (string, error) {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
 }
 
 func getPost(w http.ResponseWriter, request *http.Request) {
